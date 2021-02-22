@@ -1,5 +1,13 @@
 import React from "react";
-const Card = () => {
+const Card = ({ card }) => {
+    /**
+     * 実は({})=>{}という書き方もできる
+     * (アロー関数+分割代入)
+     */
+
+    /**
+     * @summary Cardコンポーネントのpropsはひとまずカードの中身だけでよさそう！
+     */
     return (
         <>
             <div
@@ -18,7 +26,7 @@ const Card = () => {
                         margin: 0,
                     }}
                 >
-                    1
+                    {card}
                 </p>
             </div>
         </>
