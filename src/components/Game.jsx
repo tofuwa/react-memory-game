@@ -6,7 +6,17 @@ import { Card } from "./Card";
  * @class Board
  */
 class Game extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
+        /**
+         * @summary this.propsで引数をAppから受け取る
+         */
+        const clearPairCount = this.props.clearPairCount;
+        const openCount = this.props.openCount;
+        const cards = this.props.cards;
+
         const board = (
             <div
                 style={{
@@ -18,12 +28,18 @@ class Game extends React.Component {
                     width: "32vw",
                 }}
             >
-                {new Array(16).fill(<Card />)}
+                {cards.map((card, index) => {
+                    return <Card card={card} key={index} />;
+                })}
             </div>
         );
         return (
             <div>
-                <StatusView />
+                <StatusView
+                    cards={cards}
+                    openCount={openCount}
+                    clearPairCount={clearPairCount}
+                />
                 {board}
             </div>
         );
