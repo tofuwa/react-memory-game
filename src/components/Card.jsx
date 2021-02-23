@@ -1,9 +1,14 @@
 import React from "react";
-const Card = ({ card }) => {
+const Card = ({ content, isClearCard, isOpenCard }) => {
     /**
      * 実は({})=>{}という書き方もできる
      * (アロー関数+分割代入)
      */
+
+    /**
+     * @summary 開いているカードなら開く、閉じているカードなら閉じるを暫定表示
+     */
+    const openStatusText = isOpenCard ? "開" : "閉";
 
     /**
      * @summary Cardコンポーネントのpropsはひとまずカードの中身だけでよさそう！
@@ -26,7 +31,7 @@ const Card = ({ card }) => {
                         margin: 0,
                     }}
                 >
-                    {card}
+                    {content + openStatusText}
                 </p>
             </div>
         </>
