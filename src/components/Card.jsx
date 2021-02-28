@@ -1,17 +1,18 @@
 import React from "react";
-const Card = ({ content, isClearCard, isOpenCard }) => {
+const Card = ({ content, isOpenCard, openCard }) => {
     /**
      * 実は({})=>{}という書き方もできる
      * (アロー関数+分割代入)
      */
 
     /**
-     * @summary 開いているカードなら開く、閉じているカードなら閉じるを暫定表示
+     * @summary 開いているカードなら中身を表示、閉じているカードなら何も表示しない
+     * クリア済みカードであれば常時表示
      */
-    const openStatusText = isOpenCard ? "開" : "閉";
+    const cardText = isOpenCard ? content : "";
 
     /**
-     * @summary Cardコンポーネントのpropsはひとまずカードの中身だけでよさそう！
+     * @summary Cardの作成
      */
     return (
         <>
@@ -23,6 +24,11 @@ const Card = ({ content, isClearCard, isOpenCard }) => {
                     borderWidth: 1,
                     borderStyle: "solid",
                 }}
+                onClick={() => {
+                    if (!isOpenCard) {
+                        openCard();
+                    }
+                }}
             >
                 <p
                     style={{
@@ -31,7 +37,7 @@ const Card = ({ content, isClearCard, isOpenCard }) => {
                         margin: 0,
                     }}
                 >
-                    {content + openStatusText}
+                    {cardText}
                 </p>
             </div>
         </>
