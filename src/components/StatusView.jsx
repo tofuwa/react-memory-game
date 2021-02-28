@@ -15,6 +15,8 @@ const StatusView = ({ cards, openCount, clearPairCount }) => {
      */
     const pairViewText = clearPairCount + "/" + pairCount;
 
+    const clearText = clearPairCount === pairCount ? "クリア！" : "";
+
     return (
         <div
             style={{
@@ -24,6 +26,7 @@ const StatusView = ({ cards, openCount, clearPairCount }) => {
             <h1>神経衰弱</h1>
             <p>ペア数 : {pairViewText}</p>
             <p>開いた回数 : {openCount}</p>
+            <h2>{clearText}</h2>
         </div>
     );
 };
