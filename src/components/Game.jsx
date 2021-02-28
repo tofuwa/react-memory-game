@@ -26,14 +26,14 @@ class Game extends React.Component {
              * @default [false,false,false...] すべてfalseが入った配列
              * すべてtrueになった状態:ゲームクリア
              */
-            isClearCards: new Array(contentsLength).fill(false),
+            clears: new Array(contentsLength).fill(false),
 
             /**
              * @var {string} isOpenCards カードは開かれているかどうかの配列
              * @default [false,false,false...] すべてfalseが入った配列
              * 奇数回目のクリック直後、クリアでないカードは閉じる必要がありそう？
              */
-            isOpenCards: new Array(contentsLength).fill(false),
+            opens: new Array(contentsLength).fill(false),
         };
     }
 
@@ -51,11 +51,11 @@ class Game extends React.Component {
          * @summary 奇数回目の場合、開く前に1度未クリアのカードをすべて閉じる
          */
         const isEvenOpenCount = openCount % 2 === 1;
-        const isOpenCards = isEvenOpenCount
-            ? this.state.isClearCards.slice()
-            : this.state.isOpenCards.slice();
+        const opens = isEvenOpenCount
+            ? this.state.clears.slice()
+            : this.state.opens.slice();
 
-        isOpenCards[index] = !isOpenCards[index];
+        opens[index] = !opens[index];
 
         /**
          * @summary クリア判定を行う
@@ -63,23 +63,19 @@ class Game extends React.Component {
          * そうでなければ、元のクリア状態を維持
          * 開いた回数が奇数や0の場合、hasClearPair内で弾く
          */
-        const oldIsClearCards = this.state.isClearCards.slice();
+        const oldClears = this.state.clears.slice();
         const contents = this.props.contents;
-        const isClearCards = hasClearPair(
-            contents,
-            oldIsClearCards,
-            isOpenCards
-        )
-            ? isOpenCards
-            : oldIsClearCards;
+        const clears = hasClearPair(contents, oldClears, opens)
+            ? opens
+            : oldClears;
 
         /**
          * @summary すべての算出後、setState
          */
         this.setState({
             openCount: openCount,
-            isOpenCards: isOpenCards,
-            isClearCards: isClearCards,
+            opens: opens,
+            clears: clears,
         });
     }
 
@@ -93,34 +89,31 @@ class Game extends React.Component {
          * @summary Game内でカードがクリア済みかstateを保有し、
          * その個数からclearPairCountを算出する
          */
-        const isClearCards = this.state.isClearCards.slice();
-        const clearCardCount = isClearCards.reduce(
-            (clearCount, isClearCard) => {
-                if (isClearCard) {
-                    return clearCount++;
-                } else {
-                    return clearCount;
-                }
-            },
-            0
-        );
+        const clears = this.state.clears.slice();
+        const clearCardCount = clears.reduce((clearCount, isClearCard) => {
+            if (isClearCard) {
+                return clearCount++;
+            } else {
+                return clearCount;
+            }
+        }, 0);
         const clearPairCount = clearCardCount / 2;
 
         const openCount = this.state.openCount;
-        const isOpenCards = this.state.isOpenCards.slice();
+        const isOpenCards = this.state.opens.slice();
 
         /**
          * @summary カード内容配列からカード配列を作成する
          */
         const cards = contents.map((cardContent, index) => {
-            const isClearCard = isClearCards[index];
-            const isOpenCard = isOpenCards[index];
+            const clear = clears[index];
+            const open = isOpenCards[index];
             return (
                 <Card
                     content={cardContent}
                     key={index}
-                    isClearCard={isClearCard}
-                    isOpenCard={isOpenCard}
+                    clear={clear}
+                    open={open}
                     openCard={() => {
                         this.openCard(index);
                     }}

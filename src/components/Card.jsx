@@ -1,5 +1,5 @@
 import React from "react";
-const Card = ({ content, isOpenCard, openCard }) => {
+const Card = ({ content, open, clear, openCard }) => {
     /**
      * 実は({})=>{}という書き方もできる
      * (アロー関数+分割代入)
@@ -9,7 +9,7 @@ const Card = ({ content, isOpenCard, openCard }) => {
      * @summary 開いているカードなら中身を表示、閉じているカードなら何も表示しない
      * クリア済みカードであれば常時表示
      */
-    const cardText = isOpenCard ? content : "";
+    const cardText = open ? content : "";
 
     /**
      * @summary Cardの作成
@@ -25,7 +25,7 @@ const Card = ({ content, isOpenCard, openCard }) => {
                     borderStyle: "solid",
                 }}
                 onClick={() => {
-                    if (!isOpenCard) {
+                    if (!open) {
                         openCard();
                     }
                 }}

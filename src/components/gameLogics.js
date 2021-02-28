@@ -1,14 +1,14 @@
 /**
  * @method hasClearPair 新たにクリアしているペアがあるか調べる
  * @param {string[]} contents カードの中身配列
- * @param {boolean[]} isClearCards クリア状態配列
- * @param {boolean[]} isOpenCards 開閉状態配列
+ * @param {boolean[]} clears クリア状態配列
+ * @param {boolean[]} opens 開閉状態配列
  * @returns {boolean} 新たにクリアしているペアがあればtrue
  * @description 開閉状態とクリア状態からコンテンツを精査する
  */
-const hasClearPair = (contents, isClearCards, isOpenCards) => {
+const hasClearPair = (contents, clears, opens) => {
     const unClearOpenContents = contents.filter((content, index) => {
-        return !isClearCards[index] && isOpenCards[index];
+        return !clears[index] && opens[index];
     });
 
     /**
