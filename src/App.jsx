@@ -1,5 +1,6 @@
 import React from "react";
 import { Game } from "./components/Game";
+import { shuffleCards } from "./components/shuffle";
 
 /**
  * @class App
@@ -13,7 +14,7 @@ class App extends React.Component {
 
         return (
             <>
-                <Game contents={contents} />
+                <Game contents={shuffleCards(contents)} />
             </>
         );
     }
