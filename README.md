@@ -1,6 +1,9 @@
 # react-memory-game
 This is a tutorial repository for learning react.
 
+## DEMO
+Check [HERE!](https://tofuwa.github.io/react-memory-game/)
+
 ## Documents
 Check docs/
 
