@@ -22,14 +22,14 @@ class Game extends React.Component {
             openCount: 0,
 
             /**
-             * @var {number} isClearCards カードはクリア済みかどうかの配列
+             * @var {boolean[]} clears カードはクリア済みかどうかの配列
              * @default [false,false,false...] すべてfalseが入った配列
              * すべてtrueになった状態:ゲームクリア
              */
             clears: new Array(contentsLength).fill(false),
 
             /**
-             * @var {string} isOpenCards カードは開かれているかどうかの配列
+             * @var {boolean[]} isOpenCards カードは開かれているかどうかの配列
              * @default [false,false,false...] すべてfalseが入った配列
              * 奇数回目のクリック直後、クリアでないカードは閉じる必要がありそう？
              */
@@ -90,9 +90,9 @@ class Game extends React.Component {
          * その個数からclearPairCountを算出する
          */
         const clears = this.state.clears.slice();
-        const clearCardCount = clears.reduce((clearCount, isClearCard) => {
-            if (isClearCard) {
-                return clearCount++;
+        const clearCardCount = clears.reduce((clearCount, isClear) => {
+            if (isClear) {
+                return ++clearCount;
             } else {
                 return clearCount;
             }
