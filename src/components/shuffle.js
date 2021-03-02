@@ -5,10 +5,13 @@
  * @description アルゴリズム上とても好ましくないが、手抜きをする
  */
 const shuffleCards = (array) => {
-    return array.sort(() => {
-        const randomA = Math.random();
-        const randomB = Math.random();
-        return randomA - randomB;
-    });
+    const shfflingArray = array.slice();
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i);
+        const tmp = shfflingArray[j];
+        shfflingArray[j] = shfflingArray[i];
+        shfflingArray[i] = tmp;
+    }
+    return shfflingArray;
 };
 export { shuffleCards };
